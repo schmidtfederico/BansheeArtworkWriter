@@ -4,16 +4,12 @@ import bansheeartwork.config.AppContext;
 import bansheeartwork.filter.AudioFileFilter;
 import bansheeartwork.filter.DirectoryFilter;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
 import org.jaudiotagger.tag.FieldDataInvalidException;
-import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.images.Artwork;
 
 /**
@@ -22,20 +18,13 @@ import org.jaudiotagger.tag.images.Artwork;
  */
 public class ArtworkWriter extends Thread {
     
-    File bansheeCache;
+    private int writenFiles = 0;
+    private ArrayList<String> failedFiles = new ArrayList<>();
     
-    /**
-     * Creates an instance of this class specifying the media library location.
-     * @param mediaLibrary 
-     */
-    public ArtworkWriter(){
-        
-        /*String[] getUserHome = {"/bin/sh", "-c", "echo ~username"};
-        try {
-            Process p = Runtime.getRuntime().exec(getUserHome);
-        } catch (IOException ex) {
-            Logger.getLogger(ArtworkWriter.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+    private ArtworkWriterObserver caller;
+    
+    public ArtworkWriter(ArtworkWriterObserver caller){
+        this.caller = caller;
     }
     
     @Override
@@ -47,6 +36,9 @@ public class ArtworkWriter extends Thread {
         } else {
             this.processDirectory(mediaLibrary.getParentFile());
         }
+        
+        caller.showFailedFiles(failedFiles);
+        caller.showStatistics(writenFiles+failedFiles.size(), writenFiles, failedFiles.size());
     }
     
     private void processDirectory(File dir){
@@ -67,16 +59,23 @@ public class ArtworkWriter extends Thread {
                 try {
                     audioFile.getTag().setField(artwork);
                     audioFile.commit();
+                    writenFiles++;
                 } catch (CannotWriteException ex) {
-                    Logger.getLogger(ArtworkWriter.class.getName()).log(Level.SEVERE, null, ex);
+                    failedFiles.add(this.fileRelativePath(audioFile) + " (Reason: CannotWrite)");
                 } catch (FieldDataInvalidException ex) {
-                    Logger.getLogger(ArtworkWriter.class.getName()).log(Level.SEVERE, null, ex);
+                    failedFiles.add(this.fileRelativePath(audioFile) + " (Reason: FieldDataInvalid)");
                 }
+            }else{
+                failedFiles.add(this.fileRelativePath(audioFile) + " (Reason: ArtworkNotFound)");
             }
         }
         
         for(File directory : dir.listFiles(DirectoryFilter.getInstance())){
             this.processDirectory(directory);
         }
+    }
+    
+    private String fileRelativePath(AudioFile f){
+        return f.getFile().getAbsolutePath().replaceFirst(AppContext.getInstance().getMediaLibrary().getAbsolutePath(), "");
     }
 }

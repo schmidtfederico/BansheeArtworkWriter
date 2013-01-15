@@ -30,7 +30,7 @@ public abstract class ArtworkFinder {
 
         String md5 = ArtworkFinder.MD5(Normalizer.normalize(audioTag.getFirst(FieldKey.ALBUM_ARTIST) + "\t" + audioTag.getFirst(FieldKey.ALBUM), Normalizer.Form.NFKD));
 
-        String path_string = AppContext.getInstance().getBansheeCache().getAbsolutePath() + "album-" + md5 + ".jpg";
+        String path_string = AppContext.getInstance().getBansheeCache().getAbsolutePath() + "/album-" + md5 + ".jpg";
         
         File cover = new File(path_string);
 
