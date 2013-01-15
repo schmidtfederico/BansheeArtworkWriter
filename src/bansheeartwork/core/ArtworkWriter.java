@@ -5,8 +5,6 @@ import bansheeartwork.filter.AudioFileFilter;
 import bansheeartwork.filter.DirectoryFilter;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
 import org.jaudiotagger.tag.FieldDataInvalidException;

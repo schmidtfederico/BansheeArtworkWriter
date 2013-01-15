@@ -17,8 +17,6 @@ public class AppContext {
         if(config == null) config = new AppContext();
         return config;
     }
-    
-    
 
     /**
      * If true, for each folder in the music library, the artwork is determined
@@ -57,6 +55,4 @@ public class AppContext {
     public void setBansheeCache(File bansheeCache) {
         this.bansheeCache = bansheeCache;
     }
-    
-
 }

@@ -1,6 +1,7 @@
 package bansheeartwork;
 
 import bansheeartwork.cli.CommandLineRun;
+import bansheeartwork.config.AppContext;
 import java.util.ArrayList;
 
 /**
@@ -19,7 +20,9 @@ public class BansheeArtwork {
             
             for(String arg : args){
                 if(arg.startsWith("-")){
-                    
+                    switch(arg.charAt(1)){
+                        case 'o': AppContext.getInstance().setAllFilesInAFolderWithSameArtwork(true);
+                    }
                 }else{
                     arguments.add(arg);
                 }

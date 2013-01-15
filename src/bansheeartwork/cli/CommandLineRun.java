@@ -67,7 +67,7 @@ public class CommandLineRun implements ArtworkWriterObserver {
         if(this.canExecute){
             System.out.println("Media Library Path: " + AppContext.getInstance().getMediaLibrary().getAbsolutePath());
             System.out.println("Banshee Cache Path: " + AppContext.getInstance().getBansheeCache().getAbsolutePath());
-            
+            System.out.println("========================= Start ==========================");
             ArtworkWriter writer = new ArtworkWriter(this);
             writer.start();
         }
@@ -80,6 +80,7 @@ public class CommandLineRun implements ArtworkWriterObserver {
 
     @Override
     public void showStatistics(int totalFiles, int artworksWritten, int failedFiles) {
+        System.out.println("========================== End ===========================");
         System.out.println("Finished.");
         System.out.println("Artworks written: " + artworksWritten + ". Fails: " + failedFiles + ". (Total: " + totalFiles + ").");
         System.out.println("Total time: " + (System.currentTimeMillis()-this.startTime)/1000 + " seconds.");
@@ -87,7 +88,7 @@ public class CommandLineRun implements ArtworkWriterObserver {
 
     @Override
     public void showFailedFiles(ArrayList<String> failedFiles) {
-        if(failedFiles.size() == 0) return;
+        if(failedFiles.isEmpty()) return;
         System.out.println("The following files artwork was not written:");
         for(String s : failedFiles){
             System.out.println("  * " + s);

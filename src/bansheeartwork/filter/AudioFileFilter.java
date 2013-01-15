@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
@@ -50,15 +48,15 @@ public class AudioFileFilter implements FilenameFilter {
             try {
                 afiles.add(AudioFileIO.read(f));
             } catch (CannotReadException ex) {
-                Logger.getLogger(AudioFileFilter.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Couldn't read file: " + f.getAbsolutePath());
             } catch (IOException ex) {
-                Logger.getLogger(AudioFileFilter.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Couldn't read file (IOException): " + f.getAbsolutePath());
             } catch (TagException ex) {
-                Logger.getLogger(AudioFileFilter.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Couldn't read file (Tag Exception): " + f.getAbsolutePath());
             } catch (ReadOnlyFileException ex) {
-                Logger.getLogger(AudioFileFilter.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Couldn't convert file (it's read-only): " + f.getAbsolutePath());
             } catch (InvalidAudioFrameException ex) {
-                Logger.getLogger(AudioFileFilter.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Couldn't convert file (InvalidAudioFrame): " + f.getAbsolutePath());
             }
         }
         
