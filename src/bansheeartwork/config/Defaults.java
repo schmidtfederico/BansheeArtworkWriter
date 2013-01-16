@@ -3,7 +3,6 @@ package bansheeartwork.config;
 import java.io.File;
 
 /**
- *
  * @author Federico Schmidt
  */
 public class Defaults {

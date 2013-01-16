@@ -7,7 +7,6 @@ package bansheeartwork.core;
 import java.util.ArrayList;
 
 /**
- *
  * @author federico
  */
 public interface ArtworkWriterObserver {

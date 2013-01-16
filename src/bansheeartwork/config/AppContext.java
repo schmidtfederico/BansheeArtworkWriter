@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 /**
- *
  * @author Federico Schmidt
  */
 public class AppContext {

@@ -8,7 +8,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
- *
  * @author Federico Schmidt
  */
 public class CommandLineRun implements ArtworkWriterObserver {

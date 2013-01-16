@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileFilter;
 
 /**
- *
  * @author Federico Schmidt
  */
 public class DirectoryFilter implements FileFilter {

@@ -4,6 +4,12 @@ import bansheeartwork.cli.CommandLineRun;
 import bansheeartwork.config.AppContext;
 import java.util.ArrayList;
 
+/**
+ * A command line tool for writing Banshee's cached artworks to the music library files.
+ * 
+ * @author Federico Schmidt
+ * @mail schmidt.fdr@gmail.com
+ */
 public class BansheeArtwork {
 
     public static void main(String[] args) {

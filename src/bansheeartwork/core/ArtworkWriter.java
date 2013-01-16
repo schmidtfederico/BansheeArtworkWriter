@@ -17,7 +17,6 @@ import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.images.Artwork;
 
 /**
- *
  * @author Federico Schmidt
  */
 public class ArtworkWriter extends Thread {

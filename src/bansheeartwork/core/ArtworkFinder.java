@@ -13,7 +13,6 @@ import org.jaudiotagger.tag.images.Artwork;
 import org.jaudiotagger.tag.images.ArtworkFactory;
 
 /**
- *
  * @author Federico Schmidt
  */
 public abstract class ArtworkFinder {
