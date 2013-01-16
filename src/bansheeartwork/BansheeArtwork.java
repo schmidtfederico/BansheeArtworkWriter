@@ -17,7 +17,8 @@ public class BansheeArtwork {
             for(String arg : args){
                 if(arg.startsWith("-")){
                     switch(arg.charAt(1)){
-                        case 'o': AppContext.getInstance().setAllFilesInAFolderWithSameArtwork(true);
+                        case 'o': AppContext.getInstance().setAllFilesInAFolderWithSameArtwork(true); break;
+                        case 's': AppContext.getInstance().setSkipFilesWithArtwork(true); break;
                     }
                 }else{
                     arguments.add(arg);

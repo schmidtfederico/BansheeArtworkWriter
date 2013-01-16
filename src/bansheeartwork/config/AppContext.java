@@ -15,6 +15,7 @@ public class AppContext {
     static AppContext config = null;
     
     private boolean allFilesInAFolderWithSameArtwork = false;
+    private boolean skipFilesWithArtwork = false;
     private File mediaLibrary = null;
     private File bansheeCache = null;
     private static File logFile = new File("artwork.log");
@@ -77,5 +78,13 @@ public class AppContext {
 
     public void setBansheeCache(File bansheeCache) {
         this.bansheeCache = bansheeCache;
+    }
+
+    public boolean skipFilesWithArtwork() {
+        return skipFilesWithArtwork;
+    }
+
+    public void setSkipFilesWithArtwork(boolean skipFilesWithArtwork) {
+        this.skipFilesWithArtwork = skipFilesWithArtwork;
     }
 }

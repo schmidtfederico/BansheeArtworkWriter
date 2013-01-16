@@ -5,8 +5,6 @@ import bansheeartwork.filter.DirectoryFilter;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileFilter;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -63,6 +61,10 @@ public class ArtworkWriter extends Thread {
                 continue;
             }
             
+            // -s parameter.
+            if(AppContext.getInstance().skipFilesWithArtwork() && audioFile.getTag().getFirstArtwork() != null) continue;
+            
+            // -o parameter.
             if(AppContext.getInstance().allFilesInAFolderWithSameArtwork()){
                 if(artwork == null){
                     artwork = ArtworkFinder.getArtwork(audioFile);
