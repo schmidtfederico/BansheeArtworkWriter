@@ -4,10 +4,6 @@ import bansheeartwork.cli.CommandLineRun;
 import bansheeartwork.config.AppContext;
 import java.util.ArrayList;
 
-/**
- * Hello world!
- *
- */
 public class BansheeArtwork {
 
     public static void main(String[] args) {

@@ -6,6 +6,8 @@ import bansheeartwork.core.ArtworkWriter;
 import bansheeartwork.core.ArtworkWriterObserver;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -70,6 +72,7 @@ public class CommandLineRun implements ArtworkWriterObserver {
             System.out.println("========================= Start ==========================");
             ArtworkWriter writer = new ArtworkWriter(this);
             writer.start();
+            Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "LOG TEST! :D");
         }
     }
 

@@ -1,13 +1,21 @@
 package bansheeartwork.core;
 
 import bansheeartwork.config.AppContext;
-import bansheeartwork.filter.AudioFileFilter;
 import bansheeartwork.filter.DirectoryFilter;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jaudiotagger.audio.AudioFile;
+import org.jaudiotagger.audio.AudioFileFilter;
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
+import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.FieldDataInvalidException;
+import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.images.Artwork;
 
 /**
@@ -18,6 +26,8 @@ public class ArtworkWriter extends Thread {
     
     private int writenFiles = 0;
     private ArrayList<String> failedFiles = new ArrayList<>();
+    
+    AudioFileFilter audioFileFilter = new AudioFileFilter(false);
     
     private ArtworkWriterObserver caller;
     
@@ -40,11 +50,19 @@ public class ArtworkWriter extends Thread {
     }
     
     private void processDirectory(File dir){
-        ArrayList<AudioFile> audioFiles = AudioFileFilter.getAudioFiles(dir);
         
+        File audioFiles[] = dir.listFiles(audioFileFilter);
         Artwork artwork = null;
+        AudioFile audioFile;
         
-        for(AudioFile audioFile : audioFiles){
+        for(File f : audioFiles){
+            try {
+                audioFile = AudioFileIO.read(f);
+            } catch (    CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException ex) {
+                Logger.getLogger(ArtworkWriter.class.getName()).log(Level.SEVERE, null, ex);
+                continue;
+            }
+            
             if(AppContext.getInstance().allFilesInAFolderWithSameArtwork()){
                 if(artwork == null){
                     artwork = ArtworkFinder.getArtwork(audioFile);
