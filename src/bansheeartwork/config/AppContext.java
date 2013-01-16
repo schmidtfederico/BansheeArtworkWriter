@@ -1,6 +1,11 @@
 package bansheeartwork.config;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 /**
  *
@@ -12,6 +17,24 @@ public class AppContext {
     private boolean allFilesInAFolderWithSameArtwork = false;
     private File mediaLibrary = null;
     private File bansheeCache = null;
+    private static File logFile = new File("artwork.log");
+    
+    public AppContext() {
+        try {
+            Logger rootLogger = Logger.getLogger("");
+            
+            FileHandler logHandler = new FileHandler(logFile.getAbsolutePath(),
+                    2 * 1024 * 1024,
+                    1, false);
+            logHandler.setFormatter(new SimpleFormatter());
+            logHandler.setLevel(Level.INFO);
+            rootLogger.removeHandler(rootLogger.getHandlers()[0]);
+            rootLogger.setLevel(Level.INFO);
+            rootLogger.addHandler(logHandler);
+        } catch (IOException | SecurityException ex) {
+            Logger.getLogger(AppContext.class.getName()).log(Level.SEVERE, "Couldn't redirect library's log.\nYou may see a lot of warning messages from the library.");
+        }
+    }
     
     public static AppContext getInstance(){
         if(config == null) config = new AppContext();

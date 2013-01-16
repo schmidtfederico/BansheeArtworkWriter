@@ -50,7 +50,7 @@ public class ArtworkWriter extends Thread {
     }
     
     private void processDirectory(File dir){
-        
+        caller.updateStatus(dir.getAbsolutePath());
         File audioFiles[] = dir.listFiles(audioFileFilter);
         Artwork artwork = null;
         AudioFile audioFile;
@@ -59,7 +59,7 @@ public class ArtworkWriter extends Thread {
             try {
                 audioFile = AudioFileIO.read(f);
             } catch (    CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException ex) {
-                Logger.getLogger(ArtworkWriter.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Failed to convert to audio file: " + f.getName());
                 continue;
             }
             

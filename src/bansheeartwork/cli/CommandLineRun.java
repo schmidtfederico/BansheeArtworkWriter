@@ -72,7 +72,6 @@ public class CommandLineRun implements ArtworkWriterObserver {
             System.out.println("========================= Start ==========================");
             ArtworkWriter writer = new ArtworkWriter(this);
             writer.start();
-            Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "LOG TEST! :D");
         }
     }
 
